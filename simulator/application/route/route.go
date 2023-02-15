@@ -19,6 +19,13 @@ type Position struct {
 	Long float64
 }
 
+type PartialRoutePosition struct {
+	ID       string    `json:"routeId"`
+	ClientID string    `json:"clientId"`
+	Position []float64 `json:"position"`
+	Finished bool      `json:"finished"`
+}
+
 func (r *Route) LoadPositions() error {
 	if r.ID == "" {
 		return errors.New("route id not informed")

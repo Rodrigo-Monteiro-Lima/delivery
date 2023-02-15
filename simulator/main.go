@@ -6,8 +6,7 @@ import (
 
 	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
 
-	// "github.com/Rodrigo-Monteiro-Lima/delivery-simulator/infra/kafka"
-	// kafka2 "github.com/Rodrigo-Monteiro-Lima/delivery-simulator/infra/kafka"
+	kafka2 "github.com/Rodrigo-Monteiro-Lima/delivery-simulator/application/kafka"
 	"github.com/Rodrigo-Monteiro-Lima/delivery-simulator/infra/kafka"
 	"github.com/joho/godotenv"
 )
@@ -19,18 +18,18 @@ func init() {
 	}
 }
 
-// Test consumer
+// Use consumer
 func main() {
 	msgChan := make(chan *ckafka.Message)
 	consumer := kafka.NewKafkaConsumer(msgChan)
 	go consumer.Consume()
 	for msg := range msgChan {
 		fmt.Println(string(msg.Value))
-		// go kafka2.Produce(msg)
+		go kafka2.Produce(msg)
 	}
 }
 
-//Test producer
+//Use producer
 // func main() {
 // producer := kafka.NewKafkaProducer()
 // kafka.Publish("olá Jaider", "readTest", producer)
@@ -40,7 +39,7 @@ func main() {
 // }
 // }
 
-//Test route
+//Use route
 // func main() {
 // 	route := route2.Route{
 // 		ID:       "1",

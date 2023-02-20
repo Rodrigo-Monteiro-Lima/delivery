@@ -1,9 +1,9 @@
 import { RouteExistsError } from "../errors/route-exists.error";
 
 export class Route {
-  public currentMarker: google.maps.Marker;
-  public endMarker: google.maps.Marker;
-  private directionsRenderer: google.maps.DirectionsRenderer;
+  currentMarker: google.maps.Marker;
+  endMarker: google.maps.Marker;
+  directionsRenderer: google.maps.DirectionsRenderer;
 
   constructor(options: {
     currentMarkerOptions: google.maps.ReadonlyMarkerOptions;

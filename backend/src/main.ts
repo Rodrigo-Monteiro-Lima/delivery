@@ -23,6 +23,6 @@ async function bootstrap() {
   });
 
   await app.startAllMicroservices();
-  await app.listen(3000, '0.0.0.0');
+  await app.listen(3000);
 }
 bootstrap();

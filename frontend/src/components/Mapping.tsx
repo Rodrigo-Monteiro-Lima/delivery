@@ -2,16 +2,16 @@ import { Button, Grid, MenuItem, Select } from '@material-ui/core'
 import { FunctionComponent, useState, useEffect } from 'react'
 import { Route } from '../util/model';
 
-const API_URL = process.env.REACT_APP_API_URL as string;
+const API_URL = process.env.REACT_APP_API_URL;
 
 const Mapping: FunctionComponent = () => {
   const [routes, setRoutes] = useState<Route[]>([]);
+  const [routeIdSelected, setRouteIdSelected] = useState<string>("");
   useEffect(() => {
     fetch(`${API_URL}/routes`)
       .then((data) => data.json())
       .then((data) => setRoutes(data));
   }, [])
-  console.log(routes)
   return (
     <Grid container>
       <Grid item xs={12} sm={3}>
@@ -19,6 +19,8 @@ const Mapping: FunctionComponent = () => {
           <Select
             fullWidth
             displayEmpty
+            value={routeIdSelected}
+            onChange={(event) => setRouteIdSelected(event.target.value + "")}
           >
             <MenuItem value="">
               <em>Selecione uma corrida</em>

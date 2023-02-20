@@ -1,16 +1,26 @@
 import { Button, Grid, MenuItem, Select } from '@material-ui/core'
-import { FunctionComponent, useState, useEffect, useCallback, FormEvent } from 'react'
+import { Loader } from 'google-maps';
+import { FunctionComponent, useState, useEffect, useCallback, FormEvent, useRef } from 'react'
 import { Route } from '../util/model';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
+const googleMapsLoader = new Loader(process.env.REACT_APP_GOOGLE_API_KEY);
+
+
 const Mapping: FunctionComponent = () => {
   const [routes, setRoutes] = useState<Route[]>([]);
   const [routeIdSelected, setRouteIdSelected] = useState<string>("");
+  const mapRef = useRef<google.maps.Map>();
   useEffect(() => {
     fetch(`${API_URL}/routes`)
       .then((data) => data.json())
       .then((data) => setRoutes(data));
+  }, []);
+  useEffect(() => {
+    (async () => {
+        await googleMapsLoader.load()
+    })();
   }, []);
   const startRoute = useCallback(
     (event: FormEvent) => {

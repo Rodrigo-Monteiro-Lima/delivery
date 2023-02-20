@@ -1,9 +1,10 @@
 import { Button, Grid, MenuItem, Select } from '@material-ui/core'
 import { Loader } from 'google-maps';
 import { FunctionComponent, useState, useEffect, useCallback, FormEvent, useRef } from 'react'
+import { getCurrentPosition } from '../util/geolocation';
 import { Route } from '../util/model';
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL as string;
 
 const googleMapsLoader = new Loader(process.env.REACT_APP_GOOGLE_API_KEY);
 
@@ -19,7 +20,15 @@ const Mapping: FunctionComponent = () => {
   }, []);
   useEffect(() => {
     (async () => {
-        await googleMapsLoader.load()
+      const [, position] = await Promise.all([
+        googleMapsLoader.load(),
+        getCurrentPosition({ enableHighAccuracy: true }),
+      ]);
+      const divMap = document.getElementById("map") as HTMLElement;
+      mapRef.current = new google.maps.Map(divMap, {
+        zoom: 15,
+        center: position,
+      });
     })();
   }, []);
   const startRoute = useCallback(

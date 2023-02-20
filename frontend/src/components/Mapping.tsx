@@ -1,5 +1,5 @@
 import { Button, Grid, MenuItem, Select } from '@material-ui/core'
-import { FunctionComponent, useState, useEffect } from 'react'
+import { FunctionComponent, useState, useEffect, useCallback, FormEvent } from 'react'
 import { Route } from '../util/model';
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -11,11 +11,19 @@ const Mapping: FunctionComponent = () => {
     fetch(`${API_URL}/routes`)
       .then((data) => data.json())
       .then((data) => setRoutes(data));
-  }, [])
+  }, []);
+  const startRoute = useCallback(
+    (event: FormEvent) => {
+      event.preventDefault();
+      const route = routes.find((route) => route._id === routeIdSelected);
+      console.log(route, routeIdSelected);    
+    },
+    [routeIdSelected, routes]
+  );
   return (
     <Grid container>
       <Grid item xs={12} sm={3}>
-      <form>
+      <form onSubmit={startRoute}>
           <Select
             fullWidth
             displayEmpty

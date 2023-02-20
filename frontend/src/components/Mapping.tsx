@@ -1,14 +1,19 @@
 import { Button, Grid, MenuItem, Select } from '@material-ui/core'
-import React, { FunctionComponent } from 'react'
+import { FunctionComponent, useState, useEffect } from 'react'
+import { Route } from '../util/model';
 
 const Mapping: FunctionComponent = () => {
+  const [routes, setRoutes] = useState<Route[]>([]);
+  useEffect(() => {
+    fetch('http://localhost:3000/routes')
+  }, [])
   return (
     <Grid container>
       <Grid item xs={12} sm={3}>
       <form>
           <Select
             fullWidth
-            // displayEmpty
+            displayEmpty
           >
             <MenuItem value="aaa">
               Selecione uma corrida

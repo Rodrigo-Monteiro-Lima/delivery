@@ -1,17 +1,20 @@
 import { Button, Grid, MenuItem, Select } from '@material-ui/core'
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 
-const Mapping = () => {
+const Mapping: FunctionComponent = () => {
   return (
     <Grid container>
       <Grid item xs={12} sm={3}>
       <form>
           <Select
             fullWidth
-            displayEmpty
+            // displayEmpty
           >
-            <MenuItem value="">
-              <em>Selecione uma corrida</em>
+            <MenuItem value="aaa">
+              Selecione uma corrida
+            </MenuItem>
+            <MenuItem>
+              Primeiro
             </MenuItem>
           </Select>
           <div>

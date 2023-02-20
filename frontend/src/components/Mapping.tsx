@@ -4,7 +4,7 @@ import { FunctionComponent, useState, useEffect, useCallback, FormEvent, useRef 
 import { getCurrentPosition } from '../util/geolocation';
 import { Route } from '../util/model';
 
-const API_URL = process.env.REACT_APP_API_URL as string;
+const API_URL = process.env.REACT_APP_API_URL;
 
 const googleMapsLoader = new Loader(process.env.REACT_APP_GOOGLE_API_KEY);
 
@@ -24,7 +24,8 @@ const Mapping: FunctionComponent = () => {
         googleMapsLoader.load(),
         getCurrentPosition({ enableHighAccuracy: true }),
       ]);
-      const divMap = document.getElementById("map") as HTMLElement;
+      const divMap = document.getElementById("map");
+      // @ts-ignore: Object is possibly 'null'.
       mapRef.current = new google.maps.Map(divMap, {
         zoom: 15,
         center: position,
@@ -40,7 +41,7 @@ const Mapping: FunctionComponent = () => {
     [routeIdSelected, routes]
   );
   return (
-    <Grid container>
+    <Grid container style={{width: "100%", height: "100%"}}>
       <Grid item xs={12} sm={3}>
       <form onSubmit={startRoute}>
           <Select
@@ -65,7 +66,9 @@ const Mapping: FunctionComponent = () => {
           </div>
         </form>
       </Grid>
-      <Grid item xs={12} sm={9}>Mapping</Grid>
+      <Grid item xs={12} sm={9} >
+        <div id="map" style={{width: "100%", height: "100%"}}/>
+      </Grid>
     </Grid>
   )
 }

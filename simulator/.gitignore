@@ -8,7 +8,8 @@
 *.so
 *.dylib
 
-.docker
+.docker/kafka/data
+.docker/kafka/es01
 .env
 
 # Test binary, built with `go test -c`

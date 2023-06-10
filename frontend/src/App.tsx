@@ -1,7 +1,7 @@
 import { CssBaseline, MuiThemeProvider } from '@material-ui/core';
 import { SnackbarProvider } from 'notistack';
 import { Component } from 'react';
-import Mapping from './components/Mapping';
+import { Mapping } from './components/Mapping';
 import theme from './theme';
 
 class App extends Component {
